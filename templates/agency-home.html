@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %} Agency Home{% endblock %}
+
+{% block content %}
+<div class="container">
+
+  <h1>Pets</h1>
+  <div class="container">
+    {% if pets|length %}
+      <div class="row">
+        {% for pet in pets %}
+          <div class="card shadow m-5 col" style="width: 18rem;">
+            <img src="{{pet.photo_url}}" class="card-img-top my-2" alt="{{pet.name}}">
+            <div class="card-body">
+              <h5 class="card-title">{{pet.name}}</h5>
+              {% if pet.available == True %}
+                <p class="card-text">{{pet.name}} is available. </p>
+              {% else %}
+                <p class="card-text">{{pet.name}} has been placed with a family. </p>
+              {% endif %}
+              <a href="/display/{{pet.id}}">More information</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>All our pets have found furever homes!</p>
+  </div>
+  
+  {% endif %}
+  <div class="container">
+    <a href="/add" class="btn btn-primary btn-lg">Add a pet</a>
+  
+  </div>
+</div>
+{% endblock %}
