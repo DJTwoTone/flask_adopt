@@ -18,6 +18,7 @@ debug = DebugToolbarExtension(app)
 
 @app.route('/')
 def home():
+    """Home the the pet agency"""
     pets = Pet.query.all()
     return render_template('agency-home.html', pets=pets)
 
@@ -44,6 +45,7 @@ def add_pet():
 
 @app.route('/display/<pet_id>')
 def display_pet_info(pet_id):
+    """Displays individual pets"""
 
     pet = Pet.query.get_or_404(pet_id)
 
@@ -51,6 +53,7 @@ def display_pet_info(pet_id):
 
 @app.route('/edit/<pet_id>', methods=["GET", "POST"])
 def edit_pet_info(pet_id):
+    """lets you edit pet information"""
     pet = Pet.query.get_or_404(pet_id)
     form = AddPetForm(obj=pet)
 
