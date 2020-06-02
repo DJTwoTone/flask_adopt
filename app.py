@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, flash, session
 from models import db, connect_db, Pet
-from forms import AddPetForm
+from forms import AddPetForm, EditPetForm
 
 
 app = Flask(__name__)
@@ -55,7 +55,7 @@ def display_pet_info(pet_id):
 def edit_pet_info(pet_id):
     """lets you edit pet information"""
     pet = Pet.query.get_or_404(pet_id)
-    form = AddPetForm(obj=pet)
+    form = EditPetForm(obj=pet)
 
     if form.validate_on_submit():
         name = form.name.data
@@ -63,8 +63,10 @@ def edit_pet_info(pet_id):
         photo_url = form.photo_url.data
         age = form.age.data
         notes = form.notes.data
+        available = form.avaliable.data
 
-        db.session.commit()
+        pet.edit_pet(name=name, species=species, photo_url=photo_url, age=age, notes=notes, available=available)
+
         flash(f"{pet.name} has been updated")
         return redirect(f"/display/{pet.id}")
 

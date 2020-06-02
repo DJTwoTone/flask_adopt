@@ -20,3 +20,15 @@ class Pet(db.Model):
     age = db.Column(db.Integer)
     notes = db.Column(db.String)
     available = db.Column(db.Boolean, default=True)
+
+    def edit_pet(self, name, species, photo_url, age, notes, available):
+        self.name = name
+        self.species = species
+        self.photo_url = photo_url
+        self.age = age
+        self.notes = notes
+        self.available = available
+
+        db.session.commit()
+
+
